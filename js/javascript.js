@@ -1,6 +1,11 @@
 let currentIndex = 0;
-
+let currentTime = 0;
 function updateContent() {
+    if(currentInterval != null) {
+        clearInterval(currentInterval);
+        currentTime = 0;
+    }
+
     if(currentIndex >= images.length){
         // Completed
         hideSuccess();
@@ -43,6 +48,10 @@ function updateContent() {
             element.innerHTML = images[randomWordOne].alt;
         }
     }
+
+    currentInterval = setInterval(() => {
+        currentTime++;
+    }, 1000)
 
     if (typeof contentUpdated === "function") {
         contentUpdated();
@@ -110,13 +119,17 @@ function showDone(){
     }, 1000)
 }
 
+let timesToGuess = 0;
+let currentInterval;
 function handleClick(target){
     let guessedText = target.innerHTML;
     let correctText = images[currentIndex].alt;
-
+    timesToGuess++;
     if(guessedText == correctText) {
+        writeToLocal();
         showSuccess();
         nextImage();
+        timesToGuess = 0;
     }
     else {
         if (typeof wrongAnswer === "function") {
@@ -124,6 +137,48 @@ function handleClick(target){
         }
         showAlert();
     }
+}
+
+function writeToLocal() {
+    // Check if currentLevel is defined
+    if (typeof currentLevel === "undefined") {
+        return;
+    }
+
+    // Get the JSON string from localStorage
+    let currentJson = localStorage.getItem("JsonScore");
+
+    // If the retrieved item is null or empty, initialize it as an empty object
+    if (currentJson === null || currentJson === "") {
+        currentJson = {};
+    } else {
+        // Parse the JSON string to an object
+        currentJson = JSON.parse(currentJson);
+    }
+
+    // Check if the current level's data exists, if not, initialize it
+    let levelJson = currentJson[currentLevel];
+    if (levelJson === undefined) {
+        levelJson = {};
+    }
+
+    // Create a new object with the updated values
+    let newJson = {
+        "amount": timesToGuess,
+        "time": currentTime + ""  // Converting time to string (if necessary)
+    };
+
+    // Update the specific image data in the current level
+    levelJson[images[currentIndex].alt] = newJson;
+
+    // Save the updated level data back into the main JSON object
+    currentJson[currentLevel] = levelJson;
+
+    // Convert the updated object back to a JSON string and store it in localStorage
+    localStorage.setItem("JsonScore", JSON.stringify(currentJson));
+
+    console.log(levelJson);
+    console.log(currentJson);
 }
 
 updateContent();

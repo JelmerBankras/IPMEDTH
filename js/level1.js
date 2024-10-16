@@ -7,7 +7,7 @@ const images = [
     { "src": "bloem.png", "audio": "bloem.mp3", "alt": "Bloem" },
     { "src": "paddenstoel.png", "audio": "paddenstoel.mp3", "alt": "Paddenstoel" }
 ];
-
+let currentLevel = "level1";
 function contentUpdated(){
     let percentage = ((100 / images.length) * currentIndex);
     setProgressBar(percentage);

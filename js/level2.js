@@ -7,6 +7,7 @@ const images = [
     { "src": "fietsbel.png", "audio": "fietsbel.mp3", "alt": "Fietsbel" },
     { "src": "zebrapad.png", "audio": "zebrapad.mp3", "alt": "Zebrapad" },
 ];
+let currentLevel = "level2";
 
 let interval;
 let amountCorrect = -1;

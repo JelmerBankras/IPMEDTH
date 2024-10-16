@@ -7,6 +7,7 @@ const images = [
     { "src": "kip.png", "audio": "kip.mp3", "alt": "Kip" },
     { "src": "hooi.png", "audio": "hooi.mp3", "alt": "Hooi" },
 ];
+let currentLevel = "level3";
 
 function finished(){
     localStorage.setItem("level3completed", true);

@@ -25,44 +25,73 @@
         }
     </style>
 </head>
-<body class="space-x-8 bg-blue-50 flex items-center justify-center min-h-screen">
-<div class="relative bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
-    <!-- Picture -->
-    <img id="js--Level1Button" src="images/tree.png" alt="Level 1" class="w-64 h-64 mx-auto mb-4">
-    <div class="overlay" id="overlayLevel1">
-        <i class="fa-solid fa-check text-9xl text-green-600"></i>
+<body class="relative bg-blue-50 flex items-center justify-center min-h-screen">
+<div class="space-x-8 flex flex-wrap justify-center items-center">
+    <div class="relative bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
+        <!-- Picture -->
+        <img id="js--Level1Button" src="images/tree.png" alt="Level 1" class="w-64 h-64 mx-auto mb-4">
+        <div class="overlay" id="overlayLevel1">
+            <i class="fa-solid fa-check text-9xl text-green-600"></i>
+        </div>
+        <!-- Navigation Button -->
+        <div class="flex justify-between mt-4">
+            <button onclick="location.href = '/level1.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full" id="buttonLevel1">Level 1</button>
+        </div>
     </div>
-    <!-- Navigation Button -->
-    <div class="flex justify-between mt-4">
-        <button onclick="location.href = '/level1.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full" id="buttonLevel1">Level 1</button>
+
+    <div class="relative bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
+        <!-- Picture -->
+        <img id="js--Level2Button" src="images/bike.png" alt="Level 2" class="w-64 h-64 mx-auto mb-4">
+        <div class="overlay" id="overlayLevel2">
+            <i class="fa-solid fa-check text-9xl text-green-600"></i>
+        </div>
+        <!-- Navigation Button -->
+        <div class="flex justify-between mt-4">
+            <button onclick="location.href = '/level2.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full" id="buttonLevel2">Level 2</button>
+        </div>
+    </div>
+
+    <div class="relative bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
+        <!-- Picture -->
+        <img id="js--Level3Button" src="images/farm.png" alt="Level 3" class="w-64 h-64 mx-auto mb-4">
+        <div class="overlay" id="overlayLevel3">
+            <i class="fa-solid fa-check text-9xl text-green-600"></i>
+        </div>
+        <!-- Navigation Button -->
+        <div class="flex justify-between mt-4">
+            <button onclick="location.href = '/level3.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full" id="buttonLevel3">Level 3</button>
+        </div>
     </div>
 </div>
 
-<div class="relative bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
-    <!-- Picture -->
-    <img id="js--Level2Button" src="images/bike.png" alt="Level 2" class="w-64 h-64 mx-auto mb-4">
-    <div class="overlay" id="overlayLevel2">
-        <i class="fa-solid fa-check text-9xl text-green-600"></i>
-    </div>
-    <!-- Navigation Button -->
-    <div class="flex justify-between mt-4">
-        <button onclick="location.href = '/level2.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full" id="buttonLevel2">Level 2</button>
-    </div>
+<!-- New Button in the Middle Bottom -->
+<div class="absolute bottom-8 w-full flex justify-center">
+    <button id="js--resetButton" disabled onclick="reset()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg">
+        Reset levels
+    </button>
+    <button onclick="copyScore()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-full shadow-lg ml-5">
+        Kopieer score
+    </button>
 </div>
 
-<div class="relative bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
-    <!-- Picture -->
-    <img id="js--Level3Button" src="images/farm.png" alt="Level 3" class="w-64 h-64 mx-auto mb-4">
-    <div class="overlay" id="overlayLevel3">
-        <i class="fa-solid fa-check text-9xl text-green-600"></i>
-    </div>
-    <!-- Navigation Button -->
-    <div class="flex justify-between mt-4">
-        <button onclick="location.href = '/level3.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full" id="buttonLevel3">Level 3</button>
+<!-- Overlay for Alerts -->
+<div id="alertOverlay" class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center hidden z-50">
+    <div id="alertBox" class="bg-white p-6 rounded-lg shadow-lg text-center">
+        <!-- Speaker icon -->
+        <div class="flex justify-center">
+            succesvol gekopieerd
+        </div>
     </div>
 </div>
 
 <script>
+    function reset(){
+        let score = getPrettyJson();
+        localStorage.clear();
+        localStorage.setItem("JsonScore", score);
+        location.reload();
+    }
+
     // Function to check localStorage and display overlays
     function checkLevelCompletion() {
         const levels = [
@@ -70,6 +99,8 @@
             { id: 'overlayLevel2', key: 'level2completed', buttonId: 'buttonLevel2' },
             { id: 'overlayLevel3', key: 'level3completed', buttonId: 'buttonLevel3' }
         ];
+
+        let allCompleted = true;
 
         levels.forEach(level => {
             const overlay = document.getElementById(level.id);
@@ -82,12 +113,46 @@
             } else {
                 overlay.style.display = 'none'; // Hide overlay
                 button.disabled = false; // Enable button
+                allCompleted = false;
             }
         });
+
+        return allCompleted;
     }
 
     // Call the function to check level completion on page load
-    checkLevelCompletion();
+    if(checkLevelCompletion()){
+        document.getElementById("js--resetButton").removeAttribute("disabled");
+    }
+
+    function copyScore(){
+        navigator.clipboard.writeText(getPrettyJson());
+
+        let overlay = document.getElementById("alertOverlay");
+        overlay.classList.remove("hidden");
+
+        setTimeout(() => {
+            overlay.classList.add("hidden");
+        }, 1000);
+    }
+
+    function getPrettyJson() {
+        // Retrieve the JSON string from localStorage
+        let currentJson = localStorage.getItem("JsonScore");
+
+        // Check if there is any data in localStorage
+        if (!currentJson) {
+            return "No data found in localStorage.";
+        }
+
+        // Parse the JSON string into an object
+        currentJson = JSON.parse(currentJson);
+
+        // Convert the object back to a pretty JSON string with 2-space indentation
+        const prettyJson = JSON.stringify(currentJson, null, 2);
+
+        return prettyJson;
+    }
 </script>
 </body>
 </html>
