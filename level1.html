@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dutch Learning for Kids</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a65c6a216f.js" crossorigin="anonymous"></script>
+</head>
+<body style="background-image: url('/images/forest_background.jpg')" class="bg-blue-50 flex flex-col justify-between min-h-screen">
+  <div class="flex-grow flex items-center justify-center">
+    <div class="bg-white p-8 shadow-lg rounded-lg text-center max-w-lg mb-4">
+      <!-- Picture -->
+      <img id="picture" alt="apple" class="w-64 h-64 mx-auto mb-4">
+
+      <!-- Speaker icon -->
+      <div class="flex justify-center mb-4">
+        <button onclick="playAudio()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full mb-4 flex items-center">
+          <i class="fa-solid fa-volume-high"></i>
+          <div class="ml-2 hidden" id="js--playText">Geluid afspelen</div>
+        </button>
+      </div>
+
+      <!-- Navigation Buttons -->
+      <div id="js--optionBox" style="width: 20rem;" class="lex justify-between mt-4">
+        <button id="js--optionOne" onclick="handleClick(this)" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full"></button>
+        <button id="js--optionTwo" onclick="handleClick(this)" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full"></button>
+        <button id="js--optionThree" onclick="handleClick(this)" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full"></button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Progress Bar -->
+  <div class="ml-10 mr-10 bg-gray-300 rounded-full h-2 mb-4">
+    <div id="progressBar" class="bg-blue-500 h-full rounded-full" style="width: 0;"></div>
+  </div>
+
+  <!-- Audio Files -->
+  <audio id="audio"></audio>
+
+  <!-- Overlay for Alerts -->
+  <div id="overlay" class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center hidden z-50">
+    <div id="alertBox" class="bg-white p-6 rounded-lg shadow-lg text-center">
+      <p id="alertMessage" class="text-lg font-semibold">This is an alert message!</p>
+      <button onclick="hideAlert()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded mt-4"><i class="fa-regular fa-circle-xmark"></i> Sluiten</button>
+    </div>
+  </div>
+
+<!-- Adding this here because scripts need to fire after page load -->
+<script src="/js/level1.js"></script>
+<script src="/js/javascript.js"></script>
+</body>
+</html>

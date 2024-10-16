@@ -7,62 +7,27 @@
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-blue-50 flex items-center justify-center min-h-screen">
+<body class="space-x-8 bg-blue-50 flex items-center justify-center min-h-screen">
     <div class="bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
         <!-- Picture -->
-        <img id="picture" src="images/apple.jpg" alt="apple" class="w-64 h-64 mx-auto mb-4">
-        
-        <!-- Speaker icon -->
-        <button onclick="playAudio()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full mb-4">
-            <svg class="w-6 h-6 inline-block" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5l-7 7m0 0l7 7m-7-7h12"></path>
-            </svg>
-            Play Sound
-        </button>
-
-        <!-- Navigation Buttons -->
+        <img id="js--Level1Button" src="images/tree.png" alt="boom" class="w-64 h-64 mx-auto mb-4">  <!-- Navigation Buttons -->
         <div class="flex justify-between mt-4">
-            <button onclick="prevImage()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full">Previous</button>
-            <button onclick="nextImage()" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full">Next</button>
+            <button onclick="location.href = '/level1.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full">Level 1</button>
         </div>
     </div>
-
-    <!-- Audio Files -->
-    <audio id="audio" src="audio/apple.mp3"></audio>
-
-    <!-- JavaScript for handling the image and audio changes -->
-    <script>
-        const images = [
-            {src: 'images/stroopwafel.jpg', audio: 'audio/stroopwafel.mp3', alt: 'apple'},
-            {src: 'images/cat.jpg', audio: 'audio/cat.mp3', alt: 'cat'},
-            {src: 'images/house.jpg', audio: 'audio/house.mp3', alt: 'house'}
-        ];
-        
-        let currentIndex = 0;
-
-        function updateContent() {
-            const picture = document.getElementById('picture');
-            const audio = document.getElementById('audio');
-
-            picture.src = images[currentIndex].src;
-            picture.alt = images[currentIndex].alt;
-            audio.src = images[currentIndex].audio;
-        }
-
-        function playAudio() {
-            const audio = document.getElementById('audio');
-            audio.play();
-        }
-
-        function nextImage() {
-            currentIndex = (currentIndex + 1) % images.length;
-            updateContent();
-        }
-
-        function prevImage() {
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            updateContent();
-        }
-    </script>
+    <div class="bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
+        <!-- Picture -->
+        <img id="js--Level2Button" src="images/bike.png" alt="boom" class="w-64 h-64 mx-auto mb-4">  <!-- Navigation Buttons -->
+        <div class="flex justify-between mt-4">
+            <button onclick="location.href = '/level2.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full">Level 2</button>
+        </div>
+    </div>
+    <div class="bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
+        <!-- Picture -->
+        <img id="js--Level3Button" src="images/farm.png" alt="boom" class="w-64 h-64 mx-auto mb-4">  <!-- Navigation Buttons -->
+        <div class="flex justify-between mt-4">
+            <button onclick="location.href = '/level3.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full">Level 3</button>
+        </div>
+    </div>
 </body>
 </html>
