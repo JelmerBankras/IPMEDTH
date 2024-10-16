@@ -13,6 +13,10 @@ function contentUpdated(){
     setProgressBar(percentage);
 }
 
+function finished(){
+    localStorage.setItem("level1completed", true);
+}
+
 function setProgressBar(percentage) {
     // Ensure percentage is between 0 and 100
     if (percentage < 0) percentage = 0;

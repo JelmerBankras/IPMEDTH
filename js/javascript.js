@@ -1,17 +1,26 @@
 let currentIndex = 0;
 
 function updateContent() {
-    const picture = document.getElementById('picture');
+    if(currentIndex >= images.length){
+        // Completed
+        hideSuccess();
+        if (typeof finished === "function") {
+            finished();
+        }
+        showDone();
+        return;
+    }
+    const picture = document.getElementsByClassName('picture');
     const audio = document.getElementById('audio');
     const playText = document.getElementById("js--playText");
+    const alertMessage = document.getElementById("js--alertMessage");
     playText.classList.toggle("hidden");
 
-    if (typeof contentUpdated === "function") {
-        contentUpdated();
+    for(let i = 0; i < picture.length; i++){
+        picture[i].src = "/gameresources/images/" + images[currentIndex].src;
+        picture[i].alt = images[currentIndex].alt;
     }
-
-    picture.src = "/gameresources/images/" + images[currentIndex].src;
-    picture.alt = images[currentIndex].alt;
+    alertMessage.innerHTML = images[currentIndex].alt;
     audio.src = "/gameresources/audio/" + images[currentIndex].audio;
 
     let correctWordPosition = getRandomNumber(1,3, 0, 0);
@@ -33,6 +42,10 @@ function updateContent() {
             wordOneUsed = true;
             element.innerHTML = images[randomWordOne].alt;
         }
+    }
+
+    if (typeof contentUpdated === "function") {
+        contentUpdated();
     }
 }
 
@@ -57,33 +70,59 @@ function playAudio() {
 }
 
 function nextImage() {
-    currentIndex = (currentIndex + 1) % images.length;
+    currentIndex = currentIndex + 1;
     updateContent();
 }
 
 function prevImage() {
-    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    currentIndex = currentIndex - 1;
     updateContent();
 }
 
 // Function to show the alert overlay
-function showAlert(message) {
-    document.getElementById('alertMessage').innerText = message;
-    document.getElementById('overlay').classList.remove('hidden'); // Show overlay
+function showAlert() {
+    document.getElementById('alertOverlay').classList.remove('hidden'); // Show overlay
+    playAudio();
+    setTimeout(() => {
+        hideAlert();
+    }, 5000)
 }
 
 // Function to hide the alert overlay
 function hideAlert() {
-    document.getElementById('overlay').classList.add('hidden'); // Hide overlay
+    document.getElementById('alertOverlay').classList.add('hidden'); // Hide overlay
+}
+
+function showSuccess(){
+    document.getElementById('successOverlay').classList.remove('hidden'); // Show overlay
+    setTimeout(() => {
+        hideSuccess();
+    }, 1000)
+}
+
+function hideSuccess(){
+    document.getElementById('successOverlay').classList.add('hidden'); // Hide overlay
+}
+function showDone(){
+    document.getElementById('doneOverlay').classList.remove('hidden'); // Show overlay
+    setTimeout(() => {
+        location.href = "/";
+    }, 1000)
 }
 
 function handleClick(target){
     let guessedText = target.innerHTML;
     let correctText = images[currentIndex].alt;
 
-    if(guessedText == correctText) prevImage();
+    if(guessedText == correctText) {
+        showSuccess();
+        nextImage();
+    }
     else {
-        showAlert("incorrect!");
+        if (typeof wrongAnswer === "function") {
+            wrongAnswer();
+        }
+        showAlert();
     }
 }
 

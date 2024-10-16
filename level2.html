@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Dutch Learning for Kids</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://kit.fontawesome.com/a65c6a216f.js" crossorigin="anonymous"></script>
+</head>
+<body style="background-image: url('/images/bike_background.jpg')" class="bg-blue-50 flex flex-col justify-between min-h-screen">
+<div class="flex-grow flex items-center justify-center">
+  <div class="bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
+    <!-- Picture -->
+    <img alt="apple" class="picture w-64 h-64 mx-auto mb-4">
+
+    <!-- Speaker icon -->
+    <div class="flex justify-center mb-4">
+      <button onclick="playAudio()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full mb-4 flex items-center">
+        <i class="fa-solid fa-volume-high"></i>
+        <div class="ml-2 hidden" id="js--playText">Geluid afspelen</div>
+      </button>
+    </div>
+
+    <!-- Navigation Buttons -->
+    <div id="js--optionBox" style="width: 20rem;" class="lex justify-between mt-4">
+      <button id="js--optionOne" onclick="handleClick(this)" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full"></button>
+      <button id="js--optionTwo" onclick="handleClick(this)" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full"></button>
+      <button id="js--optionThree" onclick="handleClick(this)" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full"></button>
+    </div>
+  </div>
+</div>
+
+<!-- Audio Files -->
+<audio id="audio"></audio>
+
+<!-- Overlay for Alerts -->
+<div id="alertOverlay" class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center hidden z-50">
+  <div id="alertBox" class="bg-white p-6 rounded-lg shadow-lg text-center">
+    <i class="fa-regular fa-circle-xmark text-5xl text-red-600"></i>
+    <img alt="apple" class="picture w-64 h-64 mx-auto mb-4">
+    <p id="js--alertMessage" class="text-lg font-semibold"></p>
+    <!-- Speaker icon -->
+    <div class="flex justify-center">
+      <button onclick="playAudio()" class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-2 px-4 rounded-full flex items-center">
+        <i class="fa-solid fa-volume-high"></i>
+        <div class="ml-2">Geluid afspelen</div>
+      </button>
+    </div>
+  </div>
+</div>
+<!-- Overlay for Alerts -->
+<div id="successOverlay" class="fixed inset-0 bg-black bg-opacity-70 flex justify-center hidden items-center z-50">
+  <div id="successAlertBox" class="bg-white p-6 rounded-lg shadow-lg text-center">
+    <div class="flex justify-center">
+      <i class="fa-solid fa-check text-9xl text-green-600"></i>
+    </div>
+  </div>
+</div>
+<!-- Overlay for Alerts -->
+<div id="doneOverlay" class="fixed inset-0 bg-black bg-opacity-70 flex justify-center items-center z-50 hidden">
+  <div id="doneAlertBox" class="bg-white p-6 rounded-lg shadow-lg text-center">
+    <div class="flex justify-center">
+      <i class="fa-regular fa-thumbs-up text-9xl text-green-600"></i>
+    </div>
+  </div>
+</div>
+
+<!-- Parent container for circles in the top left corner -->
+<div class="absolute top-4 left-4 flex flex-col space-y-2">
+  <div class="w-24 h-12 bg-blue-500 rounded-full flex items-center justify-center shadow-lg">
+    <i class="fa-regular fa-flag text-white mr-2"></i>
+    <span id="js--progress" class="text-white text-lg font-bold"></span>
+  </div>
+  <div class="w-24 h-12 bg-red-500 rounded-full flex items-center justify-center shadow-lg">
+    <i class="fa-solid fa-fire text-white mr-2"></i>
+    <span id="js--streak"  class="text-white text-lg font-bold">0</span>
+  </div>
+  <div class="w-24 h-12 bg-green-500 rounded-full flex items-center justify-center shadow-lg">
+    <i class="fa-regular fa-clock text-white mr-2"></i>
+    <span id="js--timer"  class="text-white text-lg font-bold">0</span>
+  </div>
+  <div class="w-24 h-12 bg-yellow-500 rounded-full flex items-center justify-center shadow-lg">
+    <i class="fa-regular fa-star text-white mr-2"></i>
+    <span id="js--score"  class="text-white text-lg font-bold">0</span>
+  </div>
+</div>
+
+<!-- Adding this here because scripts need to fire after page load -->
+<script src="/js/level2.js"></script>
+<script src="/js/javascript.js"></script>
+</body>
+</html>

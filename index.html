@@ -6,28 +6,88 @@
     <title>Dutch Learning for Kids</title>
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://kit.fontawesome.com/a65c6a216f.js" crossorigin="anonymous"></script>
+    <style>
+        /* Additional custom styles for the overlay */
+        .overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent black */
+            display: none; /* Hidden by default */
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+            border-radius: 0.5rem;
+        }
+    </style>
 </head>
 <body class="space-x-8 bg-blue-50 flex items-center justify-center min-h-screen">
-    <div class="bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
-        <!-- Picture -->
-        <img id="js--Level1Button" src="images/tree.png" alt="boom" class="w-64 h-64 mx-auto mb-4">  <!-- Navigation Buttons -->
-        <div class="flex justify-between mt-4">
-            <button onclick="location.href = '/level1.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full">Level 1</button>
-        </div>
+<div class="relative bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
+    <!-- Picture -->
+    <img id="js--Level1Button" src="images/tree.png" alt="Level 1" class="w-64 h-64 mx-auto mb-4">
+    <div class="overlay" id="overlayLevel1">
+        <i class="fa-solid fa-check text-9xl text-green-600"></i>
     </div>
-    <div class="bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
-        <!-- Picture -->
-        <img id="js--Level2Button" src="images/bike.png" alt="boom" class="w-64 h-64 mx-auto mb-4">  <!-- Navigation Buttons -->
-        <div class="flex justify-between mt-4">
-            <button onclick="location.href = '/level2.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full">Level 2</button>
-        </div>
+    <!-- Navigation Button -->
+    <div class="flex justify-between mt-4">
+        <button onclick="location.href = '/level1.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full" id="buttonLevel1">Level 1</button>
     </div>
-    <div class="bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
-        <!-- Picture -->
-        <img id="js--Level3Button" src="images/farm.png" alt="boom" class="w-64 h-64 mx-auto mb-4">  <!-- Navigation Buttons -->
-        <div class="flex justify-between mt-4">
-            <button onclick="location.href = '/level3.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full">Level 3</button>
-        </div>
+</div>
+
+<div class="relative bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
+    <!-- Picture -->
+    <img id="js--Level2Button" src="images/bike.png" alt="Level 2" class="w-64 h-64 mx-auto mb-4">
+    <div class="overlay" id="overlayLevel2">
+        <i class="fa-solid fa-check text-9xl text-green-600"></i>
     </div>
+    <!-- Navigation Button -->
+    <div class="flex justify-between mt-4">
+        <button onclick="location.href = '/level2.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full" id="buttonLevel2">Level 2</button>
+    </div>
+</div>
+
+<div class="relative bg-white p-8 shadow-lg rounded-lg text-center max-w-lg">
+    <!-- Picture -->
+    <img id="js--Level3Button" src="images/farm.png" alt="Level 3" class="w-64 h-64 mx-auto mb-4">
+    <div class="overlay" id="overlayLevel3">
+        <i class="fa-solid fa-check text-9xl text-green-600"></i>
+    </div>
+    <!-- Navigation Button -->
+    <div class="flex justify-between mt-4">
+        <button onclick="location.href = '/level3.html'" class="bg-gray-300 hover:bg-gray-400 text-gray-800 font-bold py-2 px-4 rounded-full w-full" id="buttonLevel3">Level 3</button>
+    </div>
+</div>
+
+<script>
+    // Function to check localStorage and display overlays
+    function checkLevelCompletion() {
+        const levels = [
+            { id: 'overlayLevel1', key: 'level1completed', buttonId: 'buttonLevel1' },
+            { id: 'overlayLevel2', key: 'level2completed', buttonId: 'buttonLevel2' },
+            { id: 'overlayLevel3', key: 'level3completed', buttonId: 'buttonLevel3' }
+        ];
+
+        levels.forEach(level => {
+            const overlay = document.getElementById(level.id);
+            const button = document.getElementById(level.buttonId);
+            const isCompleted = localStorage.getItem(level.key) === 'true';
+
+            if (isCompleted) {
+                overlay.style.display = 'flex'; // Show overlay
+                button.disabled = true; // Disable button to prevent clicking
+            } else {
+                overlay.style.display = 'none'; // Hide overlay
+                button.disabled = false; // Enable button
+            }
+        });
+    }
+
+    // Call the function to check level completion on page load
+    checkLevelCompletion();
+</script>
 </body>
 </html>
